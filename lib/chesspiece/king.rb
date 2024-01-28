@@ -9,7 +9,7 @@ class King < Pieces
     if new_position[0]<0 || new_position[0]>7 || new_position[1]<0||new_position[1]>7
       puts "new position illegal"
       return false
-    elsif new_position[0]-position[0]).abs > 1 || (new_position[1]-position[1]).abs > 1
+    elsif (new_position[0]-position[0]).abs > 1 || (new_position[1]-position[1]).abs > 1
         puts "illegal movement for King"
         return false
     end
