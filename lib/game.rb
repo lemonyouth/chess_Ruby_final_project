@@ -85,6 +85,19 @@ class Game
     # switch_player
   end
 
+  def save_to_file(filename)
+    File.open(filename, 'w') do |file|
+      file.puts YAML.dump(@board)
+    end
+  end
+
+  def load_from_file(filename)
+    File.open(filename, 'r') do |file|
+      loaded_board = YAML.load(file)
+      @board = loaded_board if loaded_board.is_a?(Board)
+    end
+  end
+
 
 
 end
