@@ -40,11 +40,17 @@ class Game
     if piece.valid_move?(final_posi) == false
       puts "invalid move for chess #{piece} from #{original_posi} to #{final_posi}"
       return
+    elsif @board.not_intervene_other?(piece, final_posi) == false
+      puts "intervene other chesspiece on the way"
+      return
     end
-    @board.grid[final_posi[0]][final_posi[1]] = piece
-    @board.grid[original_posi[0]][original_posi[1]] = nil
-    if @board.checkmate(piece)
-      puts "checkmate for #{piece}"
+    # @board.grid[final_posi[0]][final_posi[1]] = piece
+    # @board.grid[original_posi[0]][original_posi[1]] = nil
+    @board.move_piece(original_posi, final_posi)
+    @board.set_piece(original_posi, nil)
+    moved_piece = @board.grid[final_posi[0]][final_posi[1]]
+    if @board.checkmate(moved_piece)
+      puts "checkmate for #{moved_piece}"
     end
   end
 
@@ -64,15 +70,19 @@ class Game
   end
 
   def play()
-    until game_over?
-      @board.print_board
-      original_posi = get_player_move_original_posi
-      final_posi = get_player_move_final_posi
-      execute_move(original_posi, final_posi)
-      switch_player
+     until game_over?
+       @board.print_board
+       original_posi = get_player_move_original_posi
+       final_posi = get_player_move_final_posi
+       execute_move(original_posi, final_posi)
+       switch_player
 
-    end
-
+     end
+    # @board.print_board
+    # original_posi = [7, 4]
+    # final_posi = [6, 4]
+    # execute_move(original_posi, final_posi)
+    # switch_player
   end
 
 

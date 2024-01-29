@@ -1,3 +1,4 @@
+require_relative '../board'
 class Knight < Pieces
   attr_accessor :color, :position
 

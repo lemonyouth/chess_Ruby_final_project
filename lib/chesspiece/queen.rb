@@ -12,13 +12,16 @@ class Queen < Pieces
       puts "new position illegal"
       return false
     end
-    unless (new_position[0] == position[0] || new_position[1] == position[1] ||
+    if (new_position[0] == position[0] || new_position[1] == position[1] ||
       (new_position[0] - position[0]).abs == (new_position[1] - position[1]).abs)
 
-      puts "illegal movements for queen"
+
+      return true
+    else
+      #puts "illegal movement for queen"
       return false
     end
-    return true
+
   end
 
   def to_s

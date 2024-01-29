@@ -1,3 +1,5 @@
+
+
 class Rook < Pieces
   attr_accessor :color, :position
 
@@ -13,9 +15,10 @@ class Rook < Pieces
       return false
     end
     unless new_position[0] == position[0] || new_position[1] == position[1]
-      puts "illegal movements for rook"
+      #puts "illegal movements for rook"
       return false
     end
+
     return true
   end
 

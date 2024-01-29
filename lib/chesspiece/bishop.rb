@@ -12,7 +12,7 @@ class Bishop < Pieces
       return false
     end
     unless (new_position[0] - position[0]).abs == (new_position[1] - position[1]).abs
-      puts "illegal movements for bishop"
+      #puts "illegal movements for bishop"
       return false
     end
     return true

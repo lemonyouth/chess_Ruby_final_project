@@ -55,11 +55,11 @@ class Board
 
   def checkmate(piece)
     if(piece.color == 'white')
-      if(piece.valid_move?(@black_king.position))
+      if(piece.valid_move?(@black_king.position) && not_intervene_other?(piece, @black_king.position))
         puts "white #{piece} checkmate"
       end
     else
-      if(piece.valid_move?(@white_king.position))
+      if(piece.valid_move?(@white_king.position) && not_intervene_other?(piece, @white_king.position))
         puts "black #{piece} checkmate"
       end
     end
@@ -73,5 +73,72 @@ class Board
       end
       puts "\n"
     end
+  end
+
+  def not_intervene_other?(piece, new_posi)
+    if piece.is_a?(Knight)
+      return true
+    elsif piece.is_a?(Bishop)
+      sign0 = (new_posi[0]-piece.position[0])/(new_posi[0]-piece.position[0]).abs
+      sign1 = (new_posi[1]-piece.position[1])/(new_posi[1]-piece.position[1]).abs
+      for i in 1...(new_posi[0]-piece.location[0]).abs
+        if @grid[piece.position[0]+i*sign0][piece.position[1]+i*sign1] != nil
+          return false
+        end
+      end
+      return true
+    elsif piece.is_a?(Queen)
+      if piece.position[0] == new_posi[0]
+        sign = (new_posi[1]-piece.position[1])/(new_posi[1]-piece.position[1]).abs
+        for i in 1...(new_posi[1]-piece.position[1]).abs
+          if @grid[new_posi[0]][piece.position[1]+i*sign] != nil
+            return false
+          end
+        end
+      elsif piece.position[1] == new_posi[1]
+        sign = (new_posi[0]-piece.position[0])/(new_posi[0]-piece.position[0]).abs
+        for i in 1...(new_posi[0]-piece.position[0]).abs
+          if @grid[piece.position[0]+i*sign][new_posi[1]] != nil
+            return false
+          end
+        end
+      else
+        sign0 = (new_posi[0]-piece.position[0])/(new_posi[0]-piece.position[0]).abs
+        sign1 = (new_posi[1]-piece.position[1])/(new_posi[1]-piece.position[1]).abs
+        for i in 1...(new_posi[0]-piece.position[0]).abs
+          if @grid[piece.position[0]+i*sign0][piece.position[1]+i*sign1] != nil
+            return false
+          end
+        end
+      end
+      return true
+
+    elsif piece.is_a?(Rook)
+      if piece.position[0] == new_posi[0]
+        sign = (new_posi[1]-piece.position[1])/(new_posi[1]-piece.position[1]).abs
+        for i in 1...(new_posi[1]-piece.position[1]).abs
+          if @grid[new_posi[0]][piece.position[1]+i*sign] != nil
+            return false
+          end
+        end
+      else
+        sign = (new_posi[0]-piece.position[0])/(new_posi[0]-piece.position[0]).abs
+        for i in 1...(new_posi[0]-piece.position[0]).abs
+          if @grid[piece.position[0]+i*sign][new_posi[1]] != nil
+            return false
+          end
+        end
+      end
+      return true
+    elsif piece.is_a?(King)
+      return true
+    elsif piece.is_a?(Pawn)
+      return true
+    else
+      puts "piece does not belong to any type, error"
+      return false
+    end
+
+
   end
 end
