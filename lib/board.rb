@@ -64,4 +64,14 @@ class Board
       end
     end
   end
+
+  def print_board
+    (0..7).each do |row|
+      (0..7).each do |column|
+        piece = @grid[row][column]
+        print piece.nil? ? " - " : " #{piece} "
+      end
+      puts "\n"
+    end
+  end
 end
