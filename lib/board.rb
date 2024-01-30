@@ -44,8 +44,9 @@ class Board
     if piece.valid_move?(new_posi)
       set_piece(new_posi,piece)
       piece.position = new_posi
+      set_piece(old_posi,nil)
     else
-      puts "Not a valid move for "+ piece
+      puts "Not a valid move for #{piece}"
     end
   end
 

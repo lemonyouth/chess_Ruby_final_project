@@ -44,10 +44,9 @@ class Game
       puts "intervene other chesspiece on the way"
       return
     end
-    # @board.grid[final_posi[0]][final_posi[1]] = piece
-    # @board.grid[original_posi[0]][original_posi[1]] = nil
+
     @board.move_piece(original_posi, final_posi)
-    @board.set_piece(original_posi, nil)
+    #@board.set_piece(original_posi, nil)
     moved_piece = @board.grid[final_posi[0]][final_posi[1]]
     if @board.checkmate(moved_piece)
       puts "checkmate for #{moved_piece}"
